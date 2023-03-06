@@ -5,6 +5,7 @@ import { ReactComponent as EyeIcon } from "./assets/icons/eye.svg";
 import { ReactComponent as SelectorIcon } from "./assets/icons/selector.svg";
 import { Display } from "./components/Display";
 import { UiPaper } from "./ui-kit/Paper";
+import { Canvas } from "./components/Сanvas";
 
 const items: UiToggleButtonItem[] = [
   { id: "1", label: "Runtime", icon: <EyeIcon /> },
@@ -36,6 +37,7 @@ export default function App() {
         <UiButton>-</UiButton>
         <UiButton>+</UiButton>
       </UiPaper>
+      <Canvas empty className="w-96 h-96" />
     </div>
   );
 }
