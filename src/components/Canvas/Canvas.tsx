@@ -1,24 +1,41 @@
 import clsx from "clsx";
+import { useDrop } from "react-dnd";
 import { ReactComponent as ImageIcon } from "../../assets/icons/image.svg";
 
 export interface CanvasProps extends React.HTMLAttributes<HTMLDivElement> {
-  empty?: boolean;
+  isEmpty?: boolean;
   className?: string;
 }
 
-export function Canvas({ empty, className, ...props }: CanvasProps) {
+export function Canvas({
+  isEmpty,
+  className,
+  children,
+  ...props
+}: CanvasProps) {
+  const [{ canDrop, isOver }, drop] = useDrop(() => ({
+    accept: "BOX",
+    drop: () => ({ place: "constructor" }),
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }));
+
   return (
     <div
       {...props}
+      ref={drop}
       className={clsx(
         {
           "flex flex-row items-center justify-center border-2 border-gray-400 rounded-md border-dashed":
-            empty,
+            isEmpty,
+          "flex flex-col w-full h-full gap-3": !isEmpty,
         },
         className,
       )}
     >
-      {empty && (
+      {isEmpty && (
         <div className="flex flex-col items-center justify-center gap-3">
           <ImageIcon className="text-black" />
           <div className="flex flex-col items-center justify-center gap-1">
@@ -31,6 +48,7 @@ export function Canvas({ empty, className, ...props }: CanvasProps) {
           </div>
         </div>
       )}
+      {!isEmpty && children}
     </div>
   );
 }

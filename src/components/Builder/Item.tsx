@@ -1,16 +1,16 @@
 import { UiButton } from "../../ui-kit/Button";
 import { Display } from "../Display";
-import { SectionItem } from "../../store/type";
+import { SectionItem } from "../../store/builder/type";
 
-export interface ConstructorSectionItemProps
+export interface BuilderSectionItemProps
   extends React.HTMLAttributes<HTMLDivElement> {
   item: SectionItem;
 }
 
-export function ConstructorSectionItem({
+export function BuilderSectionItem({
   item,
   ...props
-}: ConstructorSectionItemProps) {
+}: BuilderSectionItemProps) {
   return (
     <div
       {...props}

@@ -1,4 +1,4 @@
-import { UiButtonVariant } from "../ui-kit/Button";
+import { UiButtonVariant } from "../../ui-kit/Button";
 
 export type ItemType = "display" | "cell";
 
@@ -25,4 +25,8 @@ export type Section = {
   id: string;
   cols: number;
   items: SectionItem[];
+};
+
+export type ChosenSection = Section & {
+  orderIndex: number;
 };
