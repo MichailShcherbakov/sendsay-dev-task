@@ -1,11 +1,9 @@
-import React from "react";
-import { UiButton } from "./ui-kit/Button";
 import { UiToggleButton, UiToggleButtonItem } from "./ui-kit/ToggleButton";
 import { ReactComponent as EyeIcon } from "./assets/icons/eye.svg";
 import { ReactComponent as SelectorIcon } from "./assets/icons/selector.svg";
-import { Display } from "./components/Display";
-import { UiPaper } from "./ui-kit/Paper";
 import { Canvas } from "./components/Сanvas";
+import { Constructor } from "./components/Constructor/Constructor";
+import { SECTIONS } from "./store/section";
 
 const items: UiToggleButtonItem[] = [
   { id: "1", label: "Runtime", icon: <EyeIcon /> },
@@ -13,31 +11,21 @@ const items: UiToggleButtonItem[] = [
 ];
 
 export default function App() {
-  const [activeItemId, setActiveItemId] = React.useState<
-    UiToggleButtonItem["id"] | null
-  >(items.at(0)!.id);
-
   return (
-    <div className="flex flex-col p-16 gap-16">
-      <UiButton>1</UiButton>
-      <UiButton variant="primary" size="lg">
-        =
-      </UiButton>
-      <UiToggleButton
-        items={items}
-        activeItemId={activeItemId}
-        onActiveItemChange={item => setActiveItemId(item.id)}
-      />
-      <UiPaper>
-        <Display value={"0"} className="w-48" />
-      </UiPaper>
-      <UiPaper className="flex flex-row items-center gap-2">
-        <UiButton>/</UiButton>
-        <UiButton>x</UiButton>
-        <UiButton>-</UiButton>
-        <UiButton>+</UiButton>
-      </UiPaper>
-      <Canvas empty className="w-96 h-96" />
+    <div className="flex flex-col w-screen h-screen items-center justify-center overflow-hidden">
+      <div className="flex flex-col w-min h-full gap-7.5 py-9.5 px-20 overflow-hidden">
+        <div className="flex flex-row-reverse">
+          <UiToggleButton items={items} activeItemId={items.at(1)!.id} />
+        </div>
+        <div className="flex flex-row gap-14 h-min">
+          <div className="w-60">
+            <Constructor sections={SECTIONS} />
+          </div>
+          <div className="w-60 ">
+            <Canvas empty className="h-full" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

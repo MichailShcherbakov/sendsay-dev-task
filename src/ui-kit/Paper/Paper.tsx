@@ -1,15 +1,12 @@
 import clsx from "clsx";
 
-export type UiPaper = {
-  children?: React.ReactNode;
-  className?: string;
-};
+export interface UiPaperProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function UiPaper({ className, ...props }: UiPaper) {
+export function UiPaper({ className, ...props }: UiPaperProps) {
   return (
     <div
       {...props}
-      className={clsx("w-min h-min p-1 shadow-md rounded bg-white", className)}
+      className={clsx("p-1 shadow-md rounded bg-white", className)}
     />
   );
 }

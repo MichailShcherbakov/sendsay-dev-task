@@ -1,19 +1,18 @@
 import clsx from "clsx";
 import { ReactComponent as ImageIcon } from "../../assets/icons/image.svg";
 
-export type CanvasProps = {
+export interface CanvasProps extends React.HTMLAttributes<HTMLDivElement> {
   empty?: boolean;
   className?: string;
-};
+}
 
-export function Canvas(props: CanvasProps) {
-  const { empty, className } = props;
-
+export function Canvas({ empty, className, ...props }: CanvasProps) {
   return (
     <div
+      {...props}
       className={clsx(
         {
-          "flex flex-row w-min h-min items-center justify-center border-2 border-gray-400 rounded-md border-dashed":
+          "flex flex-row items-center justify-center border-2 border-gray-400 rounded-md border-dashed":
             empty,
         },
         className,

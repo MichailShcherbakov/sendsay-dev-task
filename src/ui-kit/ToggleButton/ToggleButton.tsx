@@ -6,15 +6,20 @@ export type UiToggleButtonItem = {
   icon: React.ReactNode;
 };
 
-export type UiToggleButtonProps = {
+export interface UiToggleButtonProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   items: UiToggleButtonItem[];
   activeItemId?: string | null;
   onActiveItemChange?: (item: UiToggleButtonItem) => void;
-};
+}
 
-export function UiToggleButton(props: UiToggleButtonProps) {
-  const { items, activeItemId, onActiveItemChange } = props;
-
+export function UiToggleButton({
+  items,
+  activeItemId,
+  onActiveItemChange,
+  className,
+  ...props
+}: UiToggleButtonProps) {
   function ToggleButtonItemClickHandler(item: UiToggleButtonItem) {
     if (item.id === activeItemId) return;
 
@@ -22,7 +27,13 @@ export function UiToggleButton(props: UiToggleButtonProps) {
   }
 
   return (
-    <div className="flex flex-row items-center bg-slate-100 rounded-md w-min h-min border border-slate-100">
+    <div
+      {...props}
+      className={clsx(
+        "flex flex-row items-center bg-slate-100 rounded-md w-min h-min border border-slate-100",
+        className,
+      )}
+    >
       {items.map(item => (
         <button
           className={clsx(
