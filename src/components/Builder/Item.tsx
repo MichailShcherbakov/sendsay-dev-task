@@ -1,16 +1,14 @@
 import { UiButton } from "../../ui-kit/Button";
 import { Display } from "../Display";
-import { SectionItem } from "../../store/builder/type";
+import { SectionItem } from "../../../builder/type";
+import React from "react";
 
 export interface BuilderSectionItemProps
   extends React.HTMLAttributes<HTMLDivElement> {
   item: SectionItem;
 }
 
-export function BuilderSectionItem({
-  item,
-  ...props
-}: BuilderSectionItemProps) {
+function _BuilderSectionItem({ item, ...props }: BuilderSectionItemProps) {
   return (
     <div
       {...props}
@@ -29,3 +27,5 @@ export function BuilderSectionItem({
     </div>
   );
 }
+
+export const BuilderSectionItem = React.memo(_BuilderSectionItem);

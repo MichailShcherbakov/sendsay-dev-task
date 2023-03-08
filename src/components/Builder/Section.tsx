@@ -1,68 +1,59 @@
 import clsx from "clsx";
-import { UiPaper, UiPaperProps } from "../../ui-kit/Paper";
+import { UiPaper } from "../../ui-kit/Paper";
 import { BuilderSectionItem } from "./Item";
-import { Section } from "../../store/builder/type";
-import { useDrag } from "react-dnd";
+import { Section } from "../../../builder/type";
 import React from "react";
-import { useCalcBuilderActions } from "../../store/builder/hooks";
+import { useCalcBuilderActions } from "../../../builder/hooks";
+import {
+  DraggableListItem,
+  DraggableListItemProps,
+} from "../../ui-kit/DraggableList/DraggableListItem";
+import { DraggableItem } from "../../ui-kit/DraggableList/type";
 
-export interface BuilderSectionProps {
-  section: Section;
-  UiPaperProps?: UiPaperProps;
+export interface BuilderSectionProps extends DraggableListItemProps<Section> {
   isChosen?: boolean;
 }
 
-function _BuilderSection(props: BuilderSectionProps) {
-  const { section, UiPaperProps, isChosen } = props;
+function _BuilderSection({ isChosen, ...props }: BuilderSectionProps) {
+  const { item: section } = props;
 
   const { chooseBuilderSection, removeBuilderSection } =
     useCalcBuilderActions();
-
-  const [{ isDragging }, drag, dragPreview] = useDrag({
-    type: "BOX",
-    collect: monitor => ({
-      isDragging: monitor.isDragging(),
-    }),
-    canDrag: () => !isChosen,
-    end(draggedItem, monitor) {
-      const dropResult = monitor.getDropResult();
-
-      if (!(dropResult as any)?.place) return;
-
-      chooseBuilderSection(section.id);
-    },
-  });
 
   function doubleClickHandler() {
     removeBuilderSection(section.id);
   }
 
+  function droppedItemHandler(item: DraggableItem<Section>) {
+    if (!item.dropTarget) return;
+
+    chooseBuilderSection(item.origin.id, item.dropTarget.targetIdx);
+  }
+
   return (
-    <UiPaper
-      {...UiPaperProps}
-      ref={dragPreview}
-      className={clsx(
-        {
-          "shadow-none opacity-40": isChosen,
-        },
-        UiPaperProps,
-      )}
-      onDoubleClick={doubleClickHandler}
+    <DraggableListItem
+      {...props}
+      canDrag={!isChosen}
+      onDropped={droppedItemHandler}
     >
-      <div
-        ref={drag}
-        role="handle"
-        className={clsx("grid w-full gap-2", UiPaperProps?.className)}
-        style={{
-          ...UiPaperProps?.style,
-          gridTemplateColumns: `repeat(${section.cols}, minmax(0, 1fr))`,
-        }}
+      <UiPaper
+        className={clsx({
+          "shadow-none opacity-40": isChosen,
+        })}
+        onDoubleClick={doubleClickHandler}
       >
-        {section.items.map(item => (
-          <BuilderSectionItem key={item.id} item={item} />
-        ))}
-      </div>
-    </UiPaper>
+        <div
+          className="grid w-full gap-2"
+          style={{
+            gridTemplateColumns: `repeat(${section.cols}, minmax(0, 1fr))`,
+          }}
+        >
+          {section.items.map(item => (
+            <BuilderSectionItem key={item.id} item={item} />
+          ))}
+        </div>
+      </UiPaper>
+    </DraggableListItem>
   );
 }
 

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { builderReducer } from "./builder/state";
+import { builderReducer } from "../../builder/state";
 
 export const store = configureStore({
   reducer: {
