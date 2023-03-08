@@ -1,4 +1,4 @@
-import { UiButtonVariant } from "../src/ui-kit/Button";
+import { UiButtonVariant } from "../../ui-kit/Button";
 
 export type ItemType = "display" | "cell";
 

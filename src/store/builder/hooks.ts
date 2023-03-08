@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../src/store/hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   chooseBuilderSectionAction,
   removeBuilderSectionAction,

@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { UiPaper } from "../../ui-kit/Paper";
 import { BuilderSectionItem } from "./Item";
-import { Section } from "../../../builder/type";
+import { Section } from "../../store/builder/type";
 import React from "react";
-import { useCalcBuilderActions } from "../../../builder/hooks";
+import { useCalcBuilderActions } from "../../store/builder/hooks";
 import {
   DraggableListItem,
   DraggableListItemProps,

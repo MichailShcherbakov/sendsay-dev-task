@@ -1,6 +1,6 @@
 import { UiButton } from "../../ui-kit/Button";
 import { Display } from "../Display";
-import { SectionItem } from "../../../builder/type";
+import { SectionItem } from "../../store/builder/type";
 import React from "react";
 
 export interface BuilderSectionItemProps

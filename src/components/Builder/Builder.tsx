@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { BuilderSection } from "./Section";
 import { Canvas } from "../Canvas";
-import { useCalcBuilder } from "../../../builder/hooks";
+import { useCalcBuilder } from "../../store/builder/hooks";
 import { DraggableList } from "../../ui-kit/DraggableList";
 
 export interface BuilderProps extends React.HTMLAttributes<HTMLDivElement> {}

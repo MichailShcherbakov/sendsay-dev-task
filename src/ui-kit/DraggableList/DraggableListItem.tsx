@@ -101,12 +101,7 @@ function _DraggableListItem<TItem>({
   dragPreview(drag(drop(ref)));
 
   return (
-    <div
-      {...props}
-      ref={ref}
-      role="handle"
-      className={clsx("relative py-1", className)}
-    >
+    <div {...props} ref={ref} className={clsx("relative py-1", className)}>
       {!!dropTarget && (
         <div
           className={clsx("absolute left-0 w-full", {

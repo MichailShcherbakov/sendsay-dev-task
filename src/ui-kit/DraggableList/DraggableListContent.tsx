@@ -84,7 +84,7 @@ export function DraggableListContent<TItem>({
     }
 
     hideDropTarget();
-  }, [collect.isOver]);
+  }, [collect.currentDraggedItem, collect.isOver, hideDropTarget]);
 
   const isEmpty = !state.items.length;
 
