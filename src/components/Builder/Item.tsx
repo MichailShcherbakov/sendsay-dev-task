@@ -2,21 +2,16 @@ import { UiButton } from "../../ui-kit/Button";
 import { Display } from "../Display";
 import { SectionItem } from "../../store/builder/type";
 import React from "react";
+import { UiGrid, UiGridProps } from "~/ui-kit/Grid";
 
 export interface BuilderSectionItemProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends Omit<UiGridProps, "item" | "cols"> {
   item: SectionItem;
 }
 
 function _BuilderSectionItem({ item, ...props }: BuilderSectionItemProps) {
   return (
-    <div
-      {...props}
-      style={{
-        ...props.style,
-        gridRow: `span ${item.cols ?? 1} / span ${item.cols ?? 1}`,
-      }}
-    >
+    <UiGrid {...props} item cols={item.cols}>
       {item.type === "display" ? (
         <Display value={item.value} className="w-full" />
       ) : (
@@ -24,7 +19,7 @@ function _BuilderSectionItem({ item, ...props }: BuilderSectionItemProps) {
           {item.label}
         </UiButton>
       )}
-    </div>
+    </UiGrid>
   );
 }
 

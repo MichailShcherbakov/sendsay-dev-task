@@ -9,8 +9,10 @@ import {
   DraggableListItemProps,
 } from "../../ui-kit/DraggableList/DraggableListItem";
 import { DraggableItem } from "../../ui-kit/DraggableList/type";
+import { UiGrid } from "~/ui-kit/Grid";
 
-export interface BuilderSectionProps extends DraggableListItemProps<Section> {
+export interface BuilderSectionProps
+  extends Omit<DraggableListItemProps<Section>, "canDrag" | "onDropped"> {
   isChosen?: boolean;
 }
 
@@ -42,16 +44,11 @@ function _BuilderSection({ isChosen, ...props }: BuilderSectionProps) {
         })}
         onDoubleClick={doubleClickHandler}
       >
-        <div
-          className="grid w-full gap-2"
-          style={{
-            gridTemplateColumns: `repeat(${section.cols}, minmax(0, 1fr))`,
-          }}
-        >
+        <UiGrid className="gap-2" cols={section.cols}>
           {section.items.map(item => (
             <BuilderSectionItem key={item.id} item={item} />
           ))}
-        </div>
+        </UiGrid>
       </UiPaper>
     </DraggableListItem>
   );

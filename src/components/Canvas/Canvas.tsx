@@ -6,7 +6,8 @@ import { DraggableList, DraggableListProps } from "~/ui-kit/DraggableList";
 import { BuilderSection } from "../Builder/Section";
 import { CanvasPlaceholder } from "./Placeholder";
 
-export interface CanvasProps extends Partial<DraggableListProps<Section>> {}
+export interface CanvasProps
+  extends Pick<DraggableListProps<Section>, "className"> {}
 
 export function Canvas({ className, ...props }: CanvasProps) {
   const { chosenSections } = useCalcBuilder();

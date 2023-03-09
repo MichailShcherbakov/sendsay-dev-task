@@ -2,7 +2,6 @@ import clsx from "clsx";
 
 export interface DisplayProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
-  className?: string;
 }
 
 export function Display({ value, className, ...props }: DisplayProps) {
