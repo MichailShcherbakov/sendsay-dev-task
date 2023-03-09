@@ -5,14 +5,14 @@ import { Section } from "../../store/builder/type";
 import React from "react";
 import { useCalcBuilderActions } from "../../store/builder/hooks";
 import {
-  DraggableListItem,
-  DraggableListItemProps,
+  UiDraggableListItem,
+  UiDraggableListItemProps,
 } from "../../ui-kit/DraggableList/DraggableListItem";
 import { DraggableItem } from "../../ui-kit/DraggableList/type";
 import { UiGrid } from "~/ui-kit/Grid";
 
 export interface BuilderSectionProps
-  extends Omit<DraggableListItemProps<Section>, "canDrag" | "onDropped"> {
+  extends Omit<UiDraggableListItemProps<Section>, "canDrag" | "onDropped"> {
   isChosen?: boolean;
 }
 
@@ -33,7 +33,7 @@ function _BuilderSection({ isChosen, ...props }: BuilderSectionProps) {
   }
 
   return (
-    <DraggableListItem
+    <UiDraggableListItem
       {...props}
       canDrag={!isChosen}
       onDropped={droppedItemHandler}
@@ -50,7 +50,7 @@ function _BuilderSection({ isChosen, ...props }: BuilderSectionProps) {
           ))}
         </UiGrid>
       </UiPaper>
-    </DraggableListItem>
+    </UiDraggableListItem>
   );
 }
 

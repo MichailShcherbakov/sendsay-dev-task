@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { useDrop } from "react-dnd";
-import { DraggableListItemProps } from "./DraggableListItem";
+import { UiDraggableListItemProps } from "./DraggableListItem";
 import {
   DraggableListState,
   useDraggableListState,
@@ -15,7 +15,7 @@ function getDropTarget<TItem>(state: DraggableListState<TItem>, idx: number) {
     : null;
 }
 
-export interface DraggableListContentProps<TItem>
+export interface UiDraggableListContentProps<TItem>
   extends Omit<
     React.HTMLAttributes<HTMLDivElement>,
     "children" | "onDragOver"
@@ -23,13 +23,13 @@ export interface DraggableListContentProps<TItem>
   id: string;
   accept: string;
   Placeholder?: React.ReactNode;
-  children: (props: DraggableListItemProps<TItem>) => React.ReactNode;
+  children: (props: UiDraggableListItemProps<TItem>) => React.ReactNode;
   canDrop?: (item: DraggableItem<TItem>) => boolean;
   onDragOver?: (options: { shallow: boolean }) => void;
   onDragLeave?: () => void;
 }
 
-export function DraggableListContent<TItem>({
+export function UiDraggableListContent<TItem>({
   canDrop,
   accept,
   children,
@@ -38,7 +38,7 @@ export function DraggableListContent<TItem>({
   onDragLeave,
   Placeholder,
   ...props
-}: DraggableListContentProps<TItem>) {
+}: UiDraggableListContentProps<TItem>) {
   const { id } = props;
 
   const state = useDraggableListState<TItem>();

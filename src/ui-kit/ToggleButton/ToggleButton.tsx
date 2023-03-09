@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import React from "react";
 
 export type UiToggleButtonItem = {
   id: string;
@@ -13,7 +14,7 @@ export interface UiToggleButtonProps
   onActiveItemChange?: (item: UiToggleButtonItem) => void;
 }
 
-export function UiToggleButton({
+function _UiToggleButton({
   items,
   activeItemId,
   onActiveItemChange,
@@ -61,3 +62,5 @@ export function UiToggleButton({
     </div>
   );
 }
+
+export const UiToggleButton = React.memo(_UiToggleButton);

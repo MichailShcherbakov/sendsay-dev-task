@@ -16,17 +16,17 @@ import {
 } from "./DraggableListStateContext";
 import { reducer } from "./reducer";
 
-export interface DraggableListStateProviderProps<TItem> {
+export interface UiDraggableListStateProviderProps<TItem> {
   items: TItem[];
   children?:
     | ((state: DraggableListState<TItem>) => React.ReactNode)
     | React.ReactNode;
 }
 
-export function DraggableListStateProvider<TItem>({
+export function UiDraggableListStateProvider<TItem>({
   items,
   children,
-}: DraggableListStateProviderProps<TItem>) {
+}: UiDraggableListStateProviderProps<TItem>) {
   const [state, dispatch] = React.useReducer<
     Reducer<DraggableListState<TItem>, DraggableListStateAction<TItem>>,
     TItem[]

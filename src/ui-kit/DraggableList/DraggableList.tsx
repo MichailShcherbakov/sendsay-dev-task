@@ -1,21 +1,21 @@
 import {
-  DraggableListContent,
-  DraggableListContentProps,
+  UiDraggableListContent,
+  UiDraggableListContentProps,
 } from "./DraggableListContent";
-import { DraggableListStateProvider } from "./state";
+import { UiDraggableListStateProvider } from "./state";
 
-export interface DraggableListProps<TItem>
-  extends DraggableListContentProps<TItem> {
+export interface UiDraggableListProps<TItem>
+  extends UiDraggableListContentProps<TItem> {
   items: TItem[];
 }
 
-export function DraggableList<TItem>({
+export function UiDraggableList<TItem>({
   items,
   ...props
-}: DraggableListProps<TItem>) {
+}: UiDraggableListProps<TItem>) {
   return (
-    <DraggableListStateProvider items={items}>
-      <DraggableListContent {...props} />
-    </DraggableListStateProvider>
+    <UiDraggableListStateProvider items={items}>
+      <UiDraggableListContent {...props} />
+    </UiDraggableListStateProvider>
   );
 }

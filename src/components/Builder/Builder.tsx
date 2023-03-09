@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { BuilderSection } from "./Section";
 import { Canvas } from "../Canvas";
 import { useCalcBuilder } from "../../store/builder/hooks";
-import { DraggableList } from "../../ui-kit/DraggableList";
+import { UiDraggableList } from "../../ui-kit/DraggableList";
 
 export interface BuilderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -12,7 +12,7 @@ export function Builder({ className, ...props }: BuilderProps) {
   return (
     <div {...props} className={clsx("flex flex-row gap-14 h-min", className)}>
       <div className="w-60">
-        <DraggableList
+        <UiDraggableList
           id="all_sections"
           accept="no_section"
           items={allSections}
@@ -26,7 +26,7 @@ export function Builder({ className, ...props }: BuilderProps) {
               isChosen={!!getChosenSectionById(props.item.id)}
             />
           )}
-        </DraggableList>
+        </UiDraggableList>
       </div>
       <div className="w-60">
         <Canvas />

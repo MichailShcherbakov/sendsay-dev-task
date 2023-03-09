@@ -6,7 +6,7 @@ import { genericMemo } from "../../tools/genericMemo";
 import { useDraggableListStateAction } from "./state";
 import { DraggableItem, DroppableArea, DropTarget } from "./type";
 
-export interface DraggableListItemProps<TItem>
+export interface UiDraggableListItemProps<TItem>
   extends React.HTMLAttributes<HTMLDivElement> {
   type: string;
   accept: string;
@@ -17,7 +17,7 @@ export interface DraggableListItemProps<TItem>
   onDropped?: (item: DraggableItem<TItem>) => void;
 }
 
-function _DraggableListItem<TItem>({
+function _UiDraggableListItem<TItem>({
   type,
   accept,
   idx,
@@ -28,7 +28,7 @@ function _DraggableListItem<TItem>({
   children,
   onDropped,
   ...props
-}: DraggableListItemProps<TItem>) {
+}: UiDraggableListItemProps<TItem>) {
   const ref = React.useRef<HTMLDivElement>(null);
 
   const { showDropTargetAt } = useDraggableListStateAction();
@@ -117,4 +117,4 @@ function _DraggableListItem<TItem>({
   );
 }
 
-export const DraggableListItem = genericMemo(_DraggableListItem);
+export const UiDraggableListItem = genericMemo(_UiDraggableListItem);

@@ -2,12 +2,12 @@ import clsx from "clsx";
 import React from "react";
 import { useCalcBuilder } from "~/store/builder/hooks";
 import { Section } from "~/store/builder/type";
-import { DraggableList, DraggableListProps } from "~/ui-kit/DraggableList";
+import { UiDraggableList, UiDraggableListProps } from "~/ui-kit/DraggableList";
 import { BuilderSection } from "../Builder/Section";
 import { CanvasPlaceholder } from "./Placeholder";
 
 export interface CanvasProps
-  extends Pick<DraggableListProps<Section>, "className"> {}
+  extends Pick<UiDraggableListProps<Section>, "className"> {}
 
 export function Canvas({ className, ...props }: CanvasProps) {
   const { chosenSections } = useCalcBuilder();
@@ -27,7 +27,7 @@ export function Canvas({ className, ...props }: CanvasProps) {
   }
 
   return (
-    <DraggableList
+    <UiDraggableList
       {...props}
       id="chosen_sections"
       accept="section"
@@ -45,6 +45,6 @@ export function Canvas({ className, ...props }: CanvasProps) {
           accept="section"
         />
       )}
-    </DraggableList>
+    </UiDraggableList>
   );
 }
