@@ -16,12 +16,17 @@ function getDropTarget<TItem>(state: DraggableListState<TItem>, idx: number) {
 }
 
 export interface DraggableListContentProps<TItem>
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "children"> {
+  extends Omit<
+    React.HTMLAttributes<HTMLDivElement>,
+    "children" | "onDragOver"
+  > {
   id: string;
   accept: string;
   Placeholder?: React.ReactNode;
   children: (props: DraggableListItemProps<TItem>) => React.ReactNode;
   canDrop?: (item: DraggableItem<TItem>) => boolean;
+  onDragOver?: (options: { shallow: boolean }) => void;
+  onDragLeave?: () => void;
 }
 
 export function DraggableListContent<TItem>({
@@ -29,6 +34,8 @@ export function DraggableListContent<TItem>({
   accept,
   children,
   className,
+  onDragOver,
+  onDragLeave,
   Placeholder,
   ...props
 }: DraggableListContentProps<TItem>) {
@@ -61,6 +68,10 @@ export function DraggableListContent<TItem>({
     hover(draggedItem, monitor) {
       if (!ref.current) return;
 
+      onDragOver?.({
+        shallow: monitor.isOver({ shallow: true }),
+      });
+
       /// hover only at the container
       if (!monitor.isOver({ shallow: true })) return;
 
@@ -84,7 +95,9 @@ export function DraggableListContent<TItem>({
     }
 
     hideDropTarget();
-  }, [collect.currentDraggedItem, collect.isOver, hideDropTarget]);
+
+    onDragLeave?.();
+  }, [collect.currentDraggedItem, collect.isOver, hideDropTarget, onDragLeave]);
 
   const isEmpty = !state.items.length;
 

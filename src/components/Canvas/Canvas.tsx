@@ -1,44 +1,49 @@
 import clsx from "clsx";
 import React from "react";
-import { ReactComponent as ImageIcon } from "../../assets/icons/image.svg";
+import { useCalcBuilder } from "~/store/builder/hooks";
+import { Section } from "~/store/builder/type";
+import { DraggableList, DraggableListProps } from "~/ui-kit/DraggableList";
+import { BuilderSection } from "../Builder/Section";
+import { CanvasPlaceholder } from "./Placeholder";
 
-export interface CanvasProps extends React.HTMLAttributes<HTMLDivElement> {
-  isEmpty?: boolean;
-  className?: string;
-}
+export interface CanvasProps extends Partial<DraggableListProps<Section>> {}
 
-export function Canvas({
-  isEmpty,
-  className,
-  children,
-  ...props
-}: CanvasProps) {
+export function Canvas({ className, ...props }: CanvasProps) {
+  const { chosenSections } = useCalcBuilder();
+
+  const [isDragOver, setIsDragOver] = React.useState<boolean>(false);
+
+  function dragOverHandler() {
+    if (chosenSections.length) return;
+
+    setIsDragOver(true);
+  }
+
+  function dragLeaveHandler() {
+    if (chosenSections.length) return;
+
+    setIsDragOver(false);
+  }
+
   return (
-    <div
+    <DraggableList
       {...props}
-      className={clsx(
-        {
-          "flex flex-row items-center justify-center border-2 border-gray-400 rounded-md border-dashed":
-            isEmpty,
-          "flex flex-col w-full h-full gap-3": !isEmpty,
-        },
-        className,
-      )}
+      id="chosen_sections"
+      accept="section"
+      items={chosenSections}
+      className={clsx("w-full h-full", className)}
+      Placeholder={<CanvasPlaceholder isActive={isDragOver} />}
+      onDragOver={dragOverHandler}
+      onDragLeave={dragLeaveHandler}
     >
-      {isEmpty && (
-        <div className="flex flex-col items-center justify-center gap-3">
-          <ImageIcon className="text-black" />
-          <div className="flex flex-col items-center justify-center gap-1">
-            <p className="text-sm font-medium text-purple-400">
-              Перетащите сюда
-            </p>
-            <p className="text-xs font-normal text-slate-500">
-              любой элемент из левой панели
-            </p>
-          </div>
-        </div>
+      {props => (
+        <BuilderSection
+          {...props}
+          key={props.item.id}
+          type="section"
+          accept="section"
+        />
       )}
-      {!isEmpty && children}
-    </div>
+    </DraggableList>
   );
 }

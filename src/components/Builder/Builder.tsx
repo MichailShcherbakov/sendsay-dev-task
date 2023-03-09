@@ -7,8 +7,7 @@ import { DraggableList } from "../../ui-kit/DraggableList";
 export interface BuilderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Builder({ className, ...props }: BuilderProps) {
-  const { allSections, chosenSections, getChosenSectionById } =
-    useCalcBuilder();
+  const { allSections, getChosenSectionById } = useCalcBuilder();
 
   return (
     <div {...props} className={clsx("flex flex-row gap-14 h-min", className)}>
@@ -29,23 +28,8 @@ export function Builder({ className, ...props }: BuilderProps) {
           )}
         </DraggableList>
       </div>
-      <div className="w-60 ">
-        <DraggableList
-          id="chosen_sections"
-          accept="section"
-          items={chosenSections}
-          className="w-full h-full"
-          Placeholder={<Canvas className="w-full h-full" isEmpty />}
-        >
-          {props => (
-            <BuilderSection
-              {...props}
-              key={props.item.id}
-              type="section"
-              accept="section"
-            />
-          )}
-        </DraggableList>
+      <div className="w-60">
+        <Canvas />
       </div>
     </div>
   );
