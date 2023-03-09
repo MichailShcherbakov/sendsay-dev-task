@@ -40,6 +40,7 @@ function _BuilderSection({ isChosen, ...props }: BuilderSectionProps) {
     >
       <UiPaper
         className={clsx({
+          "hover:cursor-pointer": !isChosen,
           "shadow-none opacity-40": isChosen,
         })}
         onDoubleClick={doubleClickHandler}

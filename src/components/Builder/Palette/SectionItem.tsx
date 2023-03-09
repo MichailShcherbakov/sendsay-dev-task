@@ -15,7 +15,11 @@ function _BuilderSectionItem({ item, ...props }: BuilderSectionItemProps) {
       {item.type === "display" ? (
         <Display value={item.value} className="w-full" />
       ) : (
-        <UiButton className="w-full" variant={item.variant}>
+        <UiButton
+          className="w-full"
+          variant={item.variant}
+          isInteractive={false}
+        >
           {item.label}
         </UiButton>
       )}

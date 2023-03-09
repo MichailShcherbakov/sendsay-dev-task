@@ -5,3 +5,13 @@
 body {
   font-family: "Inter", sans-serif;
 }
+
+@layer utilities {
+  .cursor-pointer {
+    cursor: pointer;
+  }
+
+  .cursor-pointer button:hover:disabled {
+    cursor: pointer;
+  }
+}
