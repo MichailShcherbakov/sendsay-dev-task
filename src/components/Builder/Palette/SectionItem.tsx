@@ -7,9 +7,14 @@ import { UiGrid, UiGridProps } from "~/ui-kit/Grid";
 export interface BuilderSectionItemProps
   extends Omit<UiGridProps, "item" | "cols"> {
   item: SectionItem;
+  isInteractive?: boolean;
 }
 
-function _BuilderSectionItem({ item, ...props }: BuilderSectionItemProps) {
+function _BuilderSectionItem({
+  item,
+  isInteractive = false,
+  ...props
+}: BuilderSectionItemProps) {
   return (
     <UiGrid {...props} item cols={item.cols}>
       {item.type === "display" ? (
@@ -18,7 +23,7 @@ function _BuilderSectionItem({ item, ...props }: BuilderSectionItemProps) {
         <UiButton
           className="w-full"
           variant={item.variant}
-          isInteractive={false}
+          isInteractive={isInteractive}
         >
           {item.label}
         </UiButton>

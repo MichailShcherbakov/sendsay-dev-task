@@ -81,6 +81,12 @@ export function UiDraggableListContent<TItem>({
         position: "after",
       };
 
+      if (canDrop && !canDrop({ ...draggedItem, dropTarget })) {
+        draggedItem.dropTarget = null;
+        hideDropTarget();
+        return;
+      }
+
       draggedItem.dropTarget = dropTarget;
 
       showDropTargetAt(dropTarget);

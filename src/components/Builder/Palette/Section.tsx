@@ -47,7 +47,7 @@ function _BuilderSection({
     >
       <UiPaper
         className={clsx({
-          "hover:cursor-pointer": canDrag,
+          "hover:drag-cursor-pointer": canDrag,
           "hover:cursor-not-allowed": isPinned,
           "shadow-none opacity-40": isChosen,
         })}

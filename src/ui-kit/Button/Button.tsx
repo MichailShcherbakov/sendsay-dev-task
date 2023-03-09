@@ -28,10 +28,12 @@ export function UiButton({
   variant = "default",
   className,
   isDisabled,
-  isInteractive = isDisabled ? !isDisabled : true,
+  isInteractive,
   onClick,
   ...props
 }: UiButtonProps) {
+  isInteractive = isDisabled ? !isDisabled : isInteractive ?? true;
+
   function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
     if (!isInteractive) return;
 
@@ -52,6 +54,7 @@ export function UiButton({
             variant === "default",
           "hover:border-2 hover:border-purple-400":
             variant === "default" && isInteractive,
+          "hover:cursor-default": !isInteractive,
           "text-white rounded-md bg-purple-400": variant === "primary",
         },
         className,

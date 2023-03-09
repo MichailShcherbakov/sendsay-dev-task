@@ -14,6 +14,7 @@ export interface UiDraggableListItemProps<TItem>
   dropTarget: DropTarget | null;
   item: TItem;
   canDrag?: boolean;
+  canDrop?: (item: DraggableItem<TItem>) => boolean;
   onDropped?: (item: DraggableItem<TItem>) => void;
 }
 
@@ -23,6 +24,7 @@ function _UiDraggableListItem<TItem>({
   idx,
   dropTarget,
   item,
+  canDrop,
   canDrag,
   className,
   children,
@@ -31,11 +33,11 @@ function _UiDraggableListItem<TItem>({
 }: UiDraggableListItemProps<TItem>) {
   const ref = React.useRef<HTMLDivElement>(null);
 
-  const { showDropTargetAt } = useDraggableListStateAction();
+  const { showDropTargetAt, hideDropTarget } = useDraggableListStateAction();
 
   const [_, drop] = useDrop<DraggableItem<TItem>, DroppableArea>({
     accept,
-    canDrop: () => false,
+    canDrop,
     hover: (draggedItem, monitor) => {
       if (!ref.current) return;
 
@@ -70,7 +72,14 @@ function _UiDraggableListItem<TItem>({
         };
       }
 
-      if (!dropTarget) return;
+      if (
+        !dropTarget ||
+        (canDrop && !canDrop({ ...draggedItem, dropTarget }))
+      ) {
+        draggedItem.dropTarget = null;
+        hideDropTarget();
+        return;
+      }
 
       draggedItem.dropTarget = dropTarget;
 

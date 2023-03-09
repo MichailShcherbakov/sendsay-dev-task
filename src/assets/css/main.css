@@ -7,11 +7,11 @@ body {
 }
 
 @layer utilities {
-  .cursor-pointer {
+  .drag-cursor-pointer {
     cursor: pointer;
   }
 
-  .cursor-pointer button:hover:disabled {
+  .drag-cursor-pointer * {
     cursor: pointer;
   }
 }
