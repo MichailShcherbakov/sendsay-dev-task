@@ -43,6 +43,7 @@ export function Canvas({ className, ...props }: CanvasProps) {
           key={props.item.id}
           type="section"
           accept="section"
+          isPinned={props.item.id === "1"}
         />
       )}
     </UiDraggableList>

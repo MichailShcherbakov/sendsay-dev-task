@@ -14,9 +14,14 @@ import { UiGrid } from "~/ui-kit/Grid";
 export interface BuilderSectionProps
   extends Omit<UiDraggableListItemProps<Section>, "canDrag" | "onDropped"> {
   isChosen?: boolean;
+  isPinned?: boolean;
 }
 
-function _BuilderSection({ isChosen, ...props }: BuilderSectionProps) {
+function _BuilderSection({
+  isChosen,
+  isPinned,
+  ...props
+}: BuilderSectionProps) {
   const { item: section } = props;
 
   const { chooseBuilderSection, removeBuilderSection } =
@@ -32,15 +37,18 @@ function _BuilderSection({ isChosen, ...props }: BuilderSectionProps) {
     chooseBuilderSection(item.origin.id, item.dropTarget.targetIdx);
   }
 
+  const canDrag = !isChosen && !isPinned;
+
   return (
     <UiDraggableListItem
       {...props}
-      canDrag={!isChosen}
+      canDrag={canDrag}
       onDropped={droppedItemHandler}
     >
       <UiPaper
         className={clsx({
-          "hover:cursor-pointer": !isChosen,
+          "hover:cursor-pointer": canDrag,
+          "hover:cursor-not-allowed": isPinned,
           "shadow-none opacity-40": isChosen,
         })}
         onDoubleClick={doubleClickHandler}
