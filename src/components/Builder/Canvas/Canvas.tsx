@@ -3,7 +3,7 @@ import React from "react";
 import { useCalcBuilder } from "~/store/builder/hooks";
 import { Section } from "~/store/builder/type";
 import { UiDraggableList, UiDraggableListProps } from "~/ui-kit/DraggableList";
-import { BuilderSection } from "../Builder/Section";
+import { BuilderSection } from "../Palette/Section";
 import { CanvasPlaceholder } from "./Placeholder";
 
 export interface CanvasProps

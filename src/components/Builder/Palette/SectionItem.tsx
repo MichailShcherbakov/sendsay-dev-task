@@ -1,6 +1,6 @@
-import { UiButton } from "../../ui-kit/Button";
-import { Display } from "../Display";
-import { SectionItem } from "../../store/builder/type";
+import { UiButton } from "~/ui-kit/Button";
+import { SectionItem } from "~/store/builder/type";
+import { Display } from "./Display";
 import React from "react";
 import { UiGrid, UiGridProps } from "~/ui-kit/Grid";
 

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
-import { Divider } from "../../components/Builder/Divider";
+import { Divider } from "./Divider";
 import { genericMemo } from "../../tools/genericMemo";
 import { useDraggableListStateAction } from "./state";
 import { DraggableItem, DroppableArea, DropTarget } from "./type";

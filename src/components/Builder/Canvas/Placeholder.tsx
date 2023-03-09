@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ReactComponent as ImageIcon } from "../../assets/icons/image.svg";
+import { ReactComponent as ImageIcon } from "~/assets/icons/image.svg";
 
 export interface CanvasPlaceholderProps
   extends React.HTMLAttributes<HTMLDivElement> {

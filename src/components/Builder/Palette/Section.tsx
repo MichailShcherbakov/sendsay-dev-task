@@ -1,14 +1,14 @@
 import clsx from "clsx";
-import { UiPaper } from "../../ui-kit/Paper";
-import { BuilderSectionItem } from "./Item";
-import { Section } from "../../store/builder/type";
+import { UiPaper } from "~/ui-kit/Paper";
+import { BuilderSectionItem } from "./SectionItem";
+import { Section } from "~/store/builder/type";
 import React from "react";
-import { useCalcBuilderActions } from "../../store/builder/hooks";
+import { useCalcBuilderActions } from "~/store/builder/hooks";
 import {
   UiDraggableListItem,
   UiDraggableListItemProps,
-} from "../../ui-kit/DraggableList/DraggableListItem";
-import { DraggableItem } from "../../ui-kit/DraggableList/type";
+} from "~/ui-kit/DraggableList/DraggableListItem";
+import { DraggableItem } from "~/ui-kit/DraggableList/type";
 import { UiGrid } from "~/ui-kit/Grid";
 
 export interface BuilderSectionProps
