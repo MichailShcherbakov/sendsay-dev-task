@@ -1,4 +1,4 @@
-import { Section } from "./type";
+import { Section, SectionItemTypeEnum } from "./type";
 
 export const SECTIONS: Section[] = [
   {
@@ -7,7 +7,7 @@ export const SECTIONS: Section[] = [
     items: [
       {
         id: "1-1",
-        type: "display",
+        type: SectionItemTypeEnum.DISPLAY,
         value: "0",
       },
     ],
@@ -18,22 +18,22 @@ export const SECTIONS: Section[] = [
     items: [
       {
         id: "2-1",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "/",
       },
       {
         id: "2-2",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "x",
       },
       {
         id: "2-3",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "-",
       },
       {
         id: "2-4",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "+",
       },
     ],
@@ -44,58 +44,58 @@ export const SECTIONS: Section[] = [
     items: [
       {
         id: "3-1",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "7",
       },
       {
         id: "3-2",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "8",
       },
       {
         id: "3-3",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "9",
       },
       {
         id: "3-4",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "4",
       },
       {
         id: "3-5",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "5",
       },
       {
         id: "3-6",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "6",
       },
       {
         id: "3-7",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "1",
       },
       {
         id: "3-8",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "2",
       },
       {
         id: "3-9",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "3",
       },
       {
         id: "3-10",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "0",
         cols: 2,
       },
       {
         id: "3-11",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: ",",
       },
     ],
@@ -106,7 +106,7 @@ export const SECTIONS: Section[] = [
     items: [
       {
         id: "4-1",
-        type: "cell",
+        type: SectionItemTypeEnum.CELL,
         label: "=",
         variant: "primary",
       },

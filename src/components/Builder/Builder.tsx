@@ -6,13 +6,12 @@ export interface BuilderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function Builder({ className, ...props }: BuilderProps) {
   return (
-    <div {...props} className={clsx("flex flex-row gap-14 h-min", className)}>
-      <div className="w-60">
-        <Palette />
-      </div>
-      <div className="w-60">
-        <Canvas />
-      </div>
+    <div
+      {...props}
+      className={clsx("flex flex-row w-134 h-min gap-14", className)}
+    >
+      <Palette className="flex-1" />
+      <Canvas className="flex-1" />
     </div>
   );
 }

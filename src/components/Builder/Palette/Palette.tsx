@@ -1,19 +1,36 @@
 import { useCalcBuilder } from "~/store/builder/hooks";
-import { UiDraggableList } from "~/ui-kit/DraggableList";
-import { BuilderSection } from "./Section";
+import { Section } from "~/store/builder/type";
+import { UiDraggableList, UiDraggableListProps } from "~/ui-kit/DraggableList";
+import { BuilderSection } from "../BuilderSection";
 
-export function Palette() {
+export interface PaletteProps
+  extends Omit<
+    UiDraggableListProps<Section>,
+    "id" | "accept" | "items" | "children"
+  > {}
+
+export function Palette(props: PaletteProps) {
   const { allSections, getChosenSectionById } = useCalcBuilder();
 
+  function canDrop() {
+    return false;
+  }
+
   return (
-    <UiDraggableList id="all_sections" accept="no_section" items={allSections}>
+    <UiDraggableList
+      {...props}
+      id="all_sections"
+      accept="no_section"
+      items={allSections}
+    >
       {props => (
         <BuilderSection
           {...props}
           key={props.item.id}
           type="section"
-          accept="no_section"
+          accept="section"
           isChosen={!!getChosenSectionById(props.item.id)}
+          canDrop={canDrop}
         />
       )}
     </UiDraggableList>

@@ -1,16 +1,18 @@
-import clsx from "clsx";
 import React from "react";
 import { useCalcBuilder } from "~/store/builder/hooks";
 import { Section } from "~/store/builder/type";
 import { UiDraggableList, UiDraggableListProps } from "~/ui-kit/DraggableList";
 import { DraggableItem } from "~/ui-kit/DraggableList/type";
-import { BuilderSection } from "../Palette/Section";
-import { CanvasPlaceholder } from "./Placeholder";
+import { BuilderSection } from "../BuilderSection";
+import { CanvasPlaceholder } from "./CanvasPlaceholder";
 
 export interface CanvasProps
-  extends Pick<UiDraggableListProps<Section>, "className"> {}
+  extends Omit<
+    UiDraggableListProps<Section>,
+    "id" | "accept" | "items" | "children"
+  > {}
 
-export function Canvas({ className, ...props }: CanvasProps) {
+export function Canvas(props: CanvasProps) {
   const { chosenSections } = useCalcBuilder();
 
   const [isDragOver, setIsDragOver] = React.useState<boolean>(false);
@@ -47,7 +49,6 @@ export function Canvas({ className, ...props }: CanvasProps) {
       id="chosen_sections"
       accept="section"
       items={chosenSections}
-      className={clsx("w-full h-full", className)}
       Placeholder={<CanvasPlaceholder isActive={isDragOver} />}
       onDragOver={dragOverHandler}
       onDragLeave={dragLeaveHandler}

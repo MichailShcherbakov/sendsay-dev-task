@@ -5,6 +5,7 @@ import { Divider } from "./Divider";
 import { genericMemo } from "../../tools/genericMemo";
 import { useDraggableListStateAction } from "./state";
 import { DraggableItem, DroppableArea, DropTarget } from "./type";
+import { isFunc } from "~/tools/isFunc";
 
 export interface UiDraggableListItemProps<TItem>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -74,7 +75,7 @@ function _UiDraggableListItem<TItem>({
 
       if (
         !dropTarget ||
-        (canDrop && !canDrop({ ...draggedItem, dropTarget }))
+        (isFunc(canDrop) && !canDrop({ ...draggedItem, dropTarget }))
       ) {
         draggedItem.dropTarget = null;
         hideDropTarget();

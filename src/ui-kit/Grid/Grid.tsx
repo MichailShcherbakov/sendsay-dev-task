@@ -10,7 +10,13 @@ function _UiGrid({ className, style, cols = 1, item, ...props }: UiGridProps) {
   return (
     <div
       {...props}
-      className={clsx("grid w-full", className)}
+      className={clsx(
+        "w-full",
+        {
+          grid: !item,
+        },
+        className,
+      )}
       style={{
         ...style,
         gridTemplateColumns: !item

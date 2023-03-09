@@ -31,7 +31,7 @@ function _UiToggleButton({
     <div
       {...props}
       className={clsx(
-        "flex flex-row items-center bg-slate-100 rounded-md w-min h-min border border-slate-100",
+        "flex flex-row items-center bg-slate-100 rounded-md w-min h-min border border-slate-100 select-none",
         className,
       )}
     >
@@ -49,6 +49,7 @@ function _UiToggleButton({
         >
           <picture
             className={clsx({
+              "text-slate-400": item.id !== activeItemId,
               "text-purple-400": item.id === activeItemId,
             })}
           >

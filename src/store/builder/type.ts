@@ -1,20 +1,23 @@
 import { UiButtonVariant } from "../../ui-kit/Button";
 
-export type ItemType = "display" | "cell";
+export enum SectionItemTypeEnum {
+  DISPLAY = "DISPLAY",
+  CELL = "CELL",
+}
 
 export interface AbstractItem {
   id: string;
-  type: ItemType;
+  type: SectionItemTypeEnum;
   cols?: number;
 }
 
 export interface DisplayItem extends AbstractItem {
-  type: "display";
+  type: SectionItemTypeEnum.DISPLAY;
   value: string;
 }
 
 export interface CellItem extends AbstractItem {
-  type: "cell";
+  type: SectionItemTypeEnum.CELL;
   label: string;
   variant?: UiButtonVariant;
 }

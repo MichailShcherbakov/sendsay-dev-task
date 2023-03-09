@@ -22,12 +22,13 @@ export function CanvasPlaceholder({
         className,
       )}
     >
-      <div className="flex flex-col items-center justify-center gap-3">
+      <div className="flex flex-col items-center justify-center gap-3 select-none">
         <ImageIcon className="text-black" />
         <div className="flex flex-col items-center justify-center gap-1">
           <p className="text-sm font-medium text-purple-400">Перетащите сюда</p>
           <p className="text-xs font-normal text-slate-500">
-            любой элемент из левой панели
+            любой элемент
+            <br /> из левой панели
           </p>
         </div>
       </div>
