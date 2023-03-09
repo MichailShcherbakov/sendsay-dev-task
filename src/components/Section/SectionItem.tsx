@@ -1,13 +1,19 @@
-import {
-  SectionItem as ISectionItem,
-  SectionItemTypeEnum,
-} from "~/store/builder/type";
+import { SectionItem, SectionItemTypeEnum } from "~/store/builder/type";
 import { Display } from "./items/Display";
 import React from "react";
 import { UiGrid, UiGridProps } from "~/ui-kit/Grid";
 import { Cell } from "./items/Cell";
 
-function provideCalcSectionItem(item: ISectionItem, isInteractive = false) {
+type ProvideCalcSectionItemOptions = {
+  isInteractive?: boolean;
+};
+
+function provideCalcSectionItem(
+  item: SectionItem,
+  options: ProvideCalcSectionItemOptions = {},
+) {
+  const { isInteractive = false } = options;
+
   switch (item.type) {
     case SectionItemTypeEnum.DISPLAY: {
       return <Display value={item.value} />;
@@ -23,8 +29,8 @@ function provideCalcSectionItem(item: ISectionItem, isInteractive = false) {
 }
 
 export interface CalcSectionItemProps
-  extends Omit<UiGridProps, "item" | "cols"> {
-  item: ISectionItem;
+  extends Omit<UiGridProps, "item" | "cols" | "onClick"> {
+  item: SectionItem;
   isInteractive?: boolean;
 }
 
@@ -35,7 +41,7 @@ function _CalcSectionItem({
 }: CalcSectionItemProps) {
   return (
     <UiGrid {...props} item cols={item.cols}>
-      {provideCalcSectionItem(item, isInteractive)}
+      {provideCalcSectionItem(item, { isInteractive })}
     </UiGrid>
   );
 }

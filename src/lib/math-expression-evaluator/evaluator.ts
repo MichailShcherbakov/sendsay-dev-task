@@ -1,11 +1,11 @@
 import { CONSTANTS, FUNCTIONS } from "./constants";
 import { Parser } from "./parser";
 import { hasProp } from "./tools";
-import { SyntaxTreeNode, SyntaxTreeNodeKindEnum } from "./type";
+import { RawExpr, SyntaxTreeNode, SyntaxTreeNodeKindEnum } from "./type";
 
 export function Evaluator() {
   const parser = Parser();
-  const variables: Record<string, number> = {};
+  const variables: Record<RawExpr, number> = {};
 
   function exec(node: SyntaxTreeNode): number {
     switch (node.kind) {
@@ -80,7 +80,7 @@ export function Evaluator() {
     }
   }
 
-  function evaluate(expr: string) {
+  function evaluate(expr: RawExpr) {
     const tree = parser.parse(expr);
     return exec(tree);
   }
