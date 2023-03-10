@@ -1,3 +1,4 @@
+import React from "react";
 import { useCalcBuilder } from "~/store/builder/hooks";
 import { Section } from "~/store/builder/type";
 import { UiDraggableList, UiDraggableListProps } from "~/ui-kit/DraggableList";
@@ -12,9 +13,7 @@ export interface PaletteProps
 export function Palette(props: PaletteProps) {
   const { allSections, getChosenSectionById } = useCalcBuilder();
 
-  function canDrop() {
-    return false;
-  }
+  const canDrop = React.useCallback(() => false, []);
 
   return (
     <UiDraggableList
