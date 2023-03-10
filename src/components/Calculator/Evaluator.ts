@@ -160,7 +160,7 @@ export class Evaluator {
       .replaceAll(",", DOT);
   }
 
-  public push(ch: Char) {
+  public push(ch: Char): EvaluatorState {
     ch = this.validate(ch);
 
     if (this.isEquals(ch)) {
@@ -180,5 +180,7 @@ export class Evaluator {
 
       this.replaceOrAdd("left", ch);
     }
+
+    return this.getState();
   }
 }

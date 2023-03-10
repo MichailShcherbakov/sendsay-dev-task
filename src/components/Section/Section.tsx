@@ -8,13 +8,16 @@ import memoize from "fast-memoize";
 
 export interface SectionProps extends UiPaperProps {
   section: Section;
+  /**
+   * @default true
+   */
   isInteractive?: boolean;
   onItemClick?: (item: SectionItem, section: Section) => void;
 }
 
 function _CalcSection({
   section,
-  isInteractive,
+  isInteractive = true,
   className,
   onItemClick,
   ...props

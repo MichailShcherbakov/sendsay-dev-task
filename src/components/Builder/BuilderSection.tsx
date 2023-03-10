@@ -54,6 +54,7 @@ function _BuilderSection({
           "hover:cursor-not-allowed": isPinned,
           "shadow-none opacity-40": isChosen,
         })}
+        isInteractive={false}
         onDoubleClick={doubleClickHandler}
       />
     </UiDraggableListItem>
