@@ -26,7 +26,7 @@ function _CalcSection({
             key={item.id}
             item={item}
             isInteractive={isInteractive}
-            // onClickCapture={() => onItemClick?.(item, section)}
+            onClickCapture={() => onItemClick?.(item, section)}
           />
         ))}
       </UiGrid>

@@ -19,6 +19,7 @@ export interface DisplayItem extends AbstractItem {
 export interface CellItem extends AbstractItem {
   type: SectionItemTypeEnum.CELL;
   label: string;
+  value: string;
   variant?: UiButtonVariant;
 }
 

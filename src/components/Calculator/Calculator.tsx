@@ -1,9 +1,14 @@
 import clsx from "clsx";
 import React from "react";
-import { Evaluator } from "~/lib/math-expression-evaluator/evaluator";
 import { useCalcBuilder } from "~/store/builder/hooks";
 import { SectionItem, SectionItemTypeEnum } from "~/store/builder/type";
 import { CalcSection } from "../Section";
+import { Evaluator, EvaluatorErrorEnum } from "./Evaluator";
+
+const ErrorMessages: Record<EvaluatorErrorEnum, string> = {
+  [EvaluatorErrorEnum.INFINITE_VALUE]: "Не определено",
+  [EvaluatorErrorEnum.NOT_CORRECT_VALUE]: "Ошибка!",
+};
 
 export interface CalculatorProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -12,12 +17,12 @@ export function Calculator({ className, ...props }: CalculatorProps) {
 
   const [sections, setSections] = React.useState(chosenSections);
 
-  const currentExpr = React.useRef("0");
-  const expr = React.useRef("0");
-  const evaluator = React.useRef(Evaluator()).current;
+  const evaluator = React.useRef(new Evaluator()).current;
 
   function itemClickHandler(item: SectionItem) {
     if (item.type !== SectionItemTypeEnum.CELL) return;
+
+    evaluator.push(item.value);
 
     setSections(
       sections.map(s => {
@@ -28,52 +33,25 @@ export function Calculator({ className, ...props }: CalculatorProps) {
           items: s.items.map(i => {
             if (i.type !== SectionItemTypeEnum.DISPLAY) return i;
 
-            if (item.label === "=") {
-              expr.current += currentExpr.current;
-              currentExpr.current = "0";
+            const evalState = evaluator.getState();
 
-              const result = evaluator.evaluate(expr.current);
+            let expr = "";
 
-              expr.current = "0";
-
-              return {
-                ...i,
-                value: Number.isNaN(result)
-                  ? "Ошибка!"
-                  : !Number.isFinite(result)
-                  ? "Не определено"
-                  : result.toString(),
-              };
+            if (evalState.error) {
+              expr = ErrorMessages[evalState.error];
+            } else if (evalState.right) {
+              expr = evalState.right;
+            } else if (evalState.op) {
+              expr = evalState.op;
+            } else if (evalState.left) {
+              expr = evalState.left;
             }
 
-            if ("/x-+".indexOf(item.label) !== -1) {
-              if ("/x-+".indexOf(currentExpr.current.at(-1)!) !== -1) {
-                currentExpr.current =
-                  currentExpr.current.slice(1, -1) + item.label;
-              } else {
-                expr.current += currentExpr.current;
-                currentExpr.current = item.label;
-              }
-
-              return {
-                ...i,
-                value: currentExpr.current,
-              };
-            } else if ("/x-+".indexOf(currentExpr.current.at(-1)!) !== -1) {
-              expr.current += currentExpr.current;
-              currentExpr.current = "0";
-            }
-
-            if ((currentExpr.current + item.label).length > 16) return i;
-
-            currentExpr.current =
-              currentExpr.current === "0"
-                ? item.label
-                : currentExpr.current + item.label;
+            expr = expr.replaceAll("*", "x").replaceAll(".", ",");
 
             return {
               ...i,
-              value: currentExpr.current,
+              value: expr,
             };
           }),
         };
