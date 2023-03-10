@@ -1,8 +1,10 @@
 import { Section, SectionItemTypeEnum } from "./type";
 
+export const DISPLAY_SECTION_ID = "1";
+
 export const SECTIONS: Section[] = [
   {
-    id: "1",
+    id: DISPLAY_SECTION_ID,
     cols: 1,
     items: [
       {

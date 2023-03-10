@@ -1,5 +1,6 @@
 import React from "react";
 import { useCalcBuilder } from "~/store/builder/hooks";
+import { DISPLAY_SECTION_ID } from "~/store/builder/sections";
 import { Section } from "~/store/builder/type";
 import { UiDraggableList, UiDraggableListProps } from "~/ui-kit/DraggableList";
 import { DraggableItem } from "~/ui-kit/DraggableList/type";
@@ -32,11 +33,17 @@ export function Canvas(props: CanvasProps) {
   function canDrop(item: DraggableItem<Section>) {
     if (!item.dropTarget) return false;
 
-    if (item.origin.id === "1" && item.dropTarget.targetIdx !== 0) {
+    if (
+      item.origin.id === DISPLAY_SECTION_ID &&
+      item.dropTarget.targetIdx !== 0
+    ) {
       return false;
     }
 
-    if (item.dropTarget.targetIdx === 0 && chosenSections.at(0)?.id === "1") {
+    if (
+      item.dropTarget.targetIdx === 0 &&
+      chosenSections.at(0)?.id === DISPLAY_SECTION_ID
+    ) {
       return false;
     }
 
@@ -60,8 +67,8 @@ export function Canvas(props: CanvasProps) {
           key={props.item.id}
           type="section"
           accept="section"
-          isPinned={props.item.id === "1"}
-          isRemovable={props.item.id !== "1"}
+          isPinned={props.item.id === DISPLAY_SECTION_ID}
+          isRemovable={props.item.id !== DISPLAY_SECTION_ID}
           canDrop={canDrop}
         />
       )}
