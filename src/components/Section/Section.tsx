@@ -4,6 +4,7 @@ import { Section, SectionItem } from "~/store/builder/type";
 import { UiGrid } from "~/ui-kit/Grid";
 import { UiPaper, UiPaperProps } from "~/ui-kit/Paper";
 import { CalcSectionItem } from "./SectionItem";
+import memoize from "fast-memoize";
 
 export interface SectionProps extends UiPaperProps {
   section: Section;
@@ -18,6 +19,15 @@ function _CalcSection({
   onItemClick,
   ...props
 }: SectionProps) {
+  const itemClickHandler = React.useMemo(
+    () =>
+      memoize(
+        (item: SectionItem, section: Section) => () =>
+          onItemClick?.(item, section),
+      ),
+    [onItemClick],
+  );
+
   return (
     <UiPaper {...props} className={clsx("my-1", className)}>
       <UiGrid className="gap-2" cols={section.cols}>
@@ -26,7 +36,7 @@ function _CalcSection({
             key={item.id}
             item={item}
             isInteractive={isInteractive}
-            onClickCapture={() => onItemClick?.(item, section)}
+            onClickCapture={itemClickHandler(item, section)}
           />
         ))}
       </UiGrid>

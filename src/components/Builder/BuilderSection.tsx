@@ -13,11 +13,13 @@ export interface BuilderSectionProps
   extends Omit<UiDraggableListItemProps<Section>, "canDrag" | "onDropped"> {
   isChosen?: boolean;
   isPinned?: boolean;
+  isRemovable?: boolean;
 }
 
 function _BuilderSection({
   isChosen,
   isPinned,
+  isRemovable,
   ...props
 }: BuilderSectionProps) {
   const { item: section } = props;
@@ -26,6 +28,8 @@ function _BuilderSection({
     useCalcBuilderActions();
 
   function doubleClickHandler() {
+    if (!isRemovable) return;
+
     removeBuilderSection(section.id);
   }
 

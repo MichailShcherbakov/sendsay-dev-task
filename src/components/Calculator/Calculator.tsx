@@ -60,20 +60,15 @@ export function Calculator({ className, ...props }: CalculatorProps) {
   }
 
   return (
-    <div
-      {...props}
-      className={clsx("flex flex-row w-134 justify-end", className)}
-    >
-      <div className="flex w-60 flex-col">
-        {sections.map(section => (
-          <CalcSection
-            key={section.id}
-            section={section}
-            isInteractive
-            onItemClick={itemClickHandler}
-          />
-        ))}
-      </div>
+    <div {...props} className={clsx("flex w-60 flex-col", className)}>
+      {sections.map(section => (
+        <CalcSection
+          key={section.id}
+          section={section}
+          isInteractive
+          onItemClick={itemClickHandler}
+        />
+      ))}
     </div>
   );
 }

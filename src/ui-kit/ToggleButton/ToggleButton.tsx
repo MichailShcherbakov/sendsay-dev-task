@@ -1,67 +1,62 @@
 import clsx from "clsx";
 import React from "react";
+import { useToggleGroupState } from "./ToggleGroupContext";
 
-export type UiToggleButtonItem = {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-};
-
-export interface UiToggleButtonProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  items: UiToggleButtonItem[];
-  activeItemId?: string | null;
-  onActiveItemChange?: (item: UiToggleButtonItem) => void;
+export interface UiToggleButtonProps<TValue>
+  extends React.HTMLAttributes<HTMLButtonElement> {
+  value: TValue;
+  icon?: React.ReactNode;
+  /**
+   * @default true
+   */
+  isInteractive?: boolean;
+  children: string;
 }
 
-function _UiToggleButton({
-  items,
-  activeItemId,
-  onActiveItemChange,
+export function UiToggleButton<TValue>({
+  value,
+  icon,
+  isInteractive = true,
   className,
+  children,
+  onClick,
   ...props
-}: UiToggleButtonProps) {
-  function ToggleButtonItemClickHandler(item: UiToggleButtonItem) {
-    if (item.id === activeItemId) return;
+}: UiToggleButtonProps<TValue>) {
+  const state = useToggleGroupState<TValue>();
 
-    onActiveItemChange?.(item);
+  function clickHandler(e: React.MouseEvent<HTMLButtonElement>) {
+    if (!isInteractive) return;
+
+    state.onChange(value);
+
+    onClick?.(e);
   }
 
   return (
-    <div
+    <button
       {...props}
       className={clsx(
-        "flex flex-row items-center bg-slate-100 rounded-md w-min h-min border border-slate-100 select-none",
+        "flex flex-row items-center py-2 px-3 gap-2 rounded-md border ",
+        {
+          "border-slate-100": value !== state.currentValue,
+          "hover:cursor-not-allowed": !isInteractive,
+          "bg-white  border-gray-100": value === state.currentValue,
+        },
         className,
       )}
+      onClick={clickHandler}
     >
-      {items.map(item => (
-        <button
-          className={clsx(
-            "flex flex-row items-center py-2 px-3 gap-2 rounded-md border ",
-            {
-              "border-slate-100": item.id !== activeItemId,
-              "bg-white  border-gray-100": item.id === activeItemId,
-            },
-          )}
-          key={item.id}
-          onClick={() => ToggleButtonItemClickHandler(item)}
+      {!!icon && (
+        <picture
+          className={clsx({
+            "text-slate-400": value !== state.currentValue,
+            "text-purple-400": value === state.currentValue,
+          })}
         >
-          <picture
-            className={clsx({
-              "text-slate-400": item.id !== activeItemId,
-              "text-purple-400": item.id === activeItemId,
-            })}
-          >
-            {item.icon}
-          </picture>
-          <span className="text-sm font-medium text-slate-400">
-            {item.label}
-          </span>
-        </button>
-      ))}
-    </div>
+          {icon}
+        </picture>
+      )}
+      <span className="text-sm font-medium text-slate-400">{children}</span>
+    </button>
   );
 }
-
-export const UiToggleButton = React.memo(_UiToggleButton);

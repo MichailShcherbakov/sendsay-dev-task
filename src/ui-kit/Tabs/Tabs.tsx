@@ -1,3 +1,4 @@
+import React from "react";
 import { UiTabsContextProvider } from "./TabsContext";
 
 export interface UiTabsProps<TValue> {

@@ -61,6 +61,7 @@ export function Canvas(props: CanvasProps) {
           type="section"
           accept="section"
           isPinned={props.item.id === "1"}
+          isRemovable={props.item.id !== "1"}
           canDrop={canDrop}
         />
       )}
